@@ -86,5 +86,5 @@ if(length(files)==0){
 }
 
 file.create(fhi::DashboardFolder("results","DONE.txt"))
-!fhi::DashboardIsDev() quit(save="no", status=0)
+if(!fhi::DashboardIsDev()) quit(save="no", status=0)
 
