@@ -1,0 +1,23 @@
+CONFIG                  CONFIG
+CleanData               CleanData
+CleanDataByFylke        CleanDataByFylke
+CreateLatestDoneFile    CreateLatestDoneFile
+CreatePlots1            CreatePlots1
+CreatePlots2            CreatePlots2
+DeleteLatestDoneFile    DeleteLatestDoneFile
+DeleteOldDatasets       DeleteOldDatasets
+IdentifyAllDatasets     IdentifyAllDatasets
+IdentifyDatasets        IdentifyDatasets
+IdentifyInOutDoc        IdentifyInOutDoc
+LatestRawID             LatestRawID
+Ukenummer               Ukenummer
+findLastWeek            findLastWeek
+firstup                 Title
+getIN                   Title
+getdataout              getdataout
+roundUpNice             roundUpNice
+selectAgeGroups         selectAgeGroups
+sykdompulspdf_template_copy
+                        hi
+sykdompulspdf_template_remove
+                        hi
