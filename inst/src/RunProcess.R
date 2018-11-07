@@ -1,7 +1,6 @@
 #devtools::load_all("fhi")
 fhi::DashboardInitialiseOpinionated(
-  NAME="sykdomspuls_pdf",
-  PKG="sykdomspulspdf",
+  NAME="sykdomspulspdf",
   PACKAGE_DIR=".")
 
 suppressMessages(library(data.table))
