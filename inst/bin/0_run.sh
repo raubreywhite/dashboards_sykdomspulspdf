@@ -15,6 +15,6 @@ COMPUTER=$(cat /tmp/computer)
 
   /usr/local/bin/Rscript /r/sykdomspulspdf/src/RunProcess.R
 
-  echo "****END****sykdomspuls_pdf****"
-  
-) 200>/var/lock/.sykdomspuls_pdf.exclusivelock
+  echo "****END****sykdomspulspdf****"
+
+) 200>/var/lock/.sykdomspulspdf.exclusivelock

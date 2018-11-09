@@ -4,18 +4,18 @@ close(con)
 Sys.setenv(COMPUTER=COMPUTER_NAME)
 
 for(baseFolder in c("/data_clean","/results","/data_app")){
-  files <- list.files(file.path(baseFolder,"sykdomspuls_pdf"))
+  files <- list.files(file.path(baseFolder,"sykdomspulspdf"))
   if(length(files)>0){
-    for(f in files) unlink(file.path(baseFolder,"sykdomspuls_pdf",f))
+    for(f in files) unlink(file.path(baseFolder,"sykdomspulspdf",f))
   }
 }
 
-unlink(file.path("/junit","sykdomspuls_pdf.xml"))
+unlink(file.path("/junit","sykdomspulspdf.xml"))
 Sys.sleep(1)
 
 a <- testthat:::JunitReporter$new()
 a$start_reporter()
-a$out <- file(file.path("/junit","sykdomspuls_pdf.xml"), "w+")
+a$out <- file(file.path("/junit","sykdomspulspdf.xml"), "w+")
 a$start_context("sykdomspuls_log")
 
 #if(FALSE){
@@ -26,15 +26,15 @@ a$start_context("sykdomspuls_log")
   cat(output$stderr)
 
   if(output$status==0){
-    a$add_result("sykdomspuls_pdf","RunAll",testthat::expectation("success","Pass"))
+    a$add_result("sykdomspulspdf","RunAll",testthat::expectation("success","Pass"))
   } else {
-    a$add_result("sykdomspuls_pdf","RunAll",testthat::expectation("error","Fail"))
+    a$add_result("sykdomspulspdf","RunAll",testthat::expectation("error","Fail"))
   }
 #} else {
-  a$add_result("sykdomspuls_pdf","RunAll",testthat::expectation("success","Pass"))
+  a$add_result("sykdomspulspdf","RunAll",testthat::expectation("success","Pass"))
 #}
 
-a$end_context("sykdomspuls_pdf")
+a$end_context("sykdomspulspdf")
 a$end_reporter()
 close(a$out)
 
