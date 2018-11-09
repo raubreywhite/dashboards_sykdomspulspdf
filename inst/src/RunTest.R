@@ -1,7 +1,7 @@
-con <- file("/tmp/computer","r")
-COMPUTER_NAME <- readLines(con,n=1)
+con <- file("/tmp/computer", "r")
+COMPUTER_NAME <- readLines(con, n = 1)
 close(con)
-Sys.setenv(COMPUTER=COMPUTER_NAME)
+Sys.setenv(COMPUTER = COMPUTER_NAME)
 
 for(baseFolder in c("/data_clean","/results","/data_app")){
   files <- list.files(file.path(baseFolder,"sykdomspulspdf"))
@@ -11,6 +11,7 @@ for(baseFolder in c("/data_clean","/results","/data_app")){
 }
 
 unlink(file.path("/junit","sykdomspulspdf.xml"))
+
 Sys.sleep(1)
 
 a <- testthat:::JunitReporter$new()
@@ -37,6 +38,3 @@ a$start_context("sykdomspuls_log")
 a$end_context("sykdomspulspdf")
 a$end_reporter()
 close(a$out)
-
-
-
