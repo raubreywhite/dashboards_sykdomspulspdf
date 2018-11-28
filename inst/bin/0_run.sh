@@ -11,10 +11,10 @@ COMPUTER=$(cat /tmp/computer)
   echo
   echo
   echo
-  echo "****START****sykdomspuls_pdf****"
+  echo "****START****signalsystemmsis****"
 
   /usr/local/bin/Rscript /r/sykdomspulspdf/src/RunProcess.R
 
-  echo "****END****sykdomspulspdf****"
+  echo "****END****signalsystemmsis****"
 
-) 200>/var/lock/.sykdomspulspdf.exclusivelock
+) 200>/var/lock/.signalsystemmsis.exclusivelock

@@ -1,7 +1,7 @@
 # devtools::load_all("fhi")
 fhi::DashboardInitialiseOpinionated(
-  NAME="sykdomspulspdf",
-  PKG="sykdomspulspdf",
+  NAME="signalsystemmsis",
+  PKG="signalsystemmsis",
   PACKAGE_DIR=".")
 
 suppressMessages(library(data.table))
@@ -15,8 +15,8 @@ mydate <- format(Sys.time(), "%d.%m.%y")
 fhi::DashboardMsg("/data_raw")
 list.files("/data_raw")
 
-fhi::DashboardMsg("/data_raw/sykdomspulspdf")
-list.files("/data_raw/sykdomspulspdf")
+fhi::DashboardMsg("/data_raw/signalsystemmsis")
+list.files("/data_raw/signalsystemmsis")
 
 if (length(files) == 0) {
   fhi::DashboardMsg("No data")
@@ -40,11 +40,11 @@ if (length(files) == 0) {
 
 
   d <- fread(fhi::DashboardFolder("data_raw",useFile))
-  fylke <-fread(system.file("extdata", "fylke.csv", package = "sykdomspulspdf"))
+  fylke <-fread(system.file("extdata", "fylke.csv", package = "signalsystemmsis"))
   lastestUpdate <- as.Date(gsub("_","-",LatestRawID()))
 =======
   d <- fread(fhi::DashboardFolder("data_raw", useFile))
-  fylke <- fread(system.file("extdata", "fylke.csv", package = "sykdomspulspdf"))
+  fylke <- fread(system.file("extdata", "fylke.csv", package = "signalsystemmsis"))
   lastestUpdate <- as.Date(gsub("_", "-", LatestRawID()))
 >>>>>>> upstream/master
 
