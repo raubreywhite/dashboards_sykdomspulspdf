@@ -1,12 +1,11 @@
 # devtools::load_all("fhi")
 fhi::DashboardInitialiseOpinionated(
-  NAME = "sykdomspulspdf",
-  PACKAGE_DIR = "."
-)
+  NAME="sykdomspulspdf",
+  PKG="sykdomspulspdf",
+  PACKAGE_DIR=".")
 
 suppressMessages(library(data.table))
 suppressMessages(library(ggplot2))
-# devtools::use_package("odfWeave")
 
 
 files <- list.files(fhi::DashboardFolder("data_raw"), "^partially_formatted_")
@@ -16,8 +15,8 @@ mydate <- format(Sys.time(), "%d.%m.%y")
 fhi::DashboardMsg("/data_raw")
 list.files("/data_raw")
 
-fhi::DashboardMsg("/data_raw/sykdomspuls_pdf")
-list.files("/data_raw/sykdomspuls_pdf")
+fhi::DashboardMsg("/data_raw/sykdomspulspdf")
+list.files("/data_raw/sykdomspulspdf")
 
 if (length(files) == 0) {
   fhi::DashboardMsg("No data")
@@ -32,9 +31,17 @@ if (length(files) == 0) {
     quit(save = "no", status = 0)
   }
 
-  d <- fread(fhi::DashboardFolder("data_raw", useFile))
-  fylke <- fread(system.file("extdata", "fylke.csv", package = "sykdomspulspdf"))
-  lastestUpdate <- as.Date(gsub("_", "-", LatestRawID()))
+  if(RAWmisc::IsFileStable(fhi::DashboardFolder("data_raw",useFile))==F) {
+    fhi::DashboardMsg("file no stable")
+    quit(save="no", status=0)
+  }
+
+
+
+  d <- fread(fhi::DashboardFolder("data_raw",useFile))
+  fylke <-fread(system.file("extdata", "fylke.csv", package = "sykdomspulspdf"))
+  lastestUpdate <- as.Date(gsub("_","-",LatestRawID()))
+
 
   fhi::DashboardMsg("Generating monthly pdf")
 

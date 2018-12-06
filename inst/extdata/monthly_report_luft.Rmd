@@ -6,17 +6,22 @@ header: "Sist oppdatert: `r format(Sys.time(), '%d.%m.%Y')`"
 #footer: "Sykdomspulsen fra Folkehelseinsttutet \\newline AAA \\newline A \\newline A "
 output: fhi::sykdompuls_luft_document
 fig_caption: true
+spacing: single
 ---
 
 # Luftveisinfeksjoner, `r f` {-}
+\begingroup\small
+Denne rapporten baseres på Sykdomspulsen som er et overvåkningssystem som innhenter anonyme diagnosedata fra primærlegene og legevakten.  
 
-Denne rapporten baseres på Sykdomspulsen som er et overvåkningssystem som innhenter anonyme diagnosedata fra primærlegene og legevakten.
-Luftveisinfeksjoner er en samlebetegnelse for diagnosekodene (ICPC-2) R05-Hoste, R74-Akutt øvre luftveisinfeksjon, R78-Bronkitt/bronkiolitt og R83-Luftveisinfeksjon IKA.
-En økning av luftveisinfeksjoner er vanlig på vinterstid, spesielt hos barn og unge. I aldersgruppen 5-19 år ser vi en stor økning av luftveisinfeksjoner fra sesongen 2016/2017. Dette skyldes hovedsakelig de nye fraværsreglene som ble innført i den videregående skole fra høsten 2016.
+Luftveisinfeksjoner er en samlebetegnelse for diagnosekodene (ICPC-2) R05-Hoste, R74-Akutt øvre luftveisinfeksjon, R78-Bronkitt/bronkiolitt og R83-Luftveisinfeksjon IKA.  
+
+En økning av luftveisinfeksjoner er vanlig på vinterstid, spesielt hos barn og unge. I aldersgruppen 5-19 år ser vi en stor økning av luftveisinfeksjoner fra sesongen 2016/2017. Dette skyldes hovedsakelig de nye fraværsreglene som ble innført i den videregående skole fra høsten 2016.  
+
 Vil du vite mer om Sykdomspulsen kan du gå tilbake til hovedsiden til Sykdomspulsen og klikke på «Om Sykdomspulsen».
+\endgroup
 
 
-```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE, results='asis',fig1,  fig.height = 4.2, fig.width = 6.8, fig.align = 'center', fig.pos="H"}
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE, results='asis',fig1,  fig.height = 3.8, fig.width = 6.8, fig.align = 'center', fig.pos="H"}
 
 CreatePlots1(alle,weeknow = weeknow, Ukenummer = Ukenummer, title=paste(mytittle, ", ",f,", alle aldersgrupper", sep ="" ),
  yrange=yrange)

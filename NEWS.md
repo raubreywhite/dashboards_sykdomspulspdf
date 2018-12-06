@@ -2,4 +2,4 @@
 
 ## Migration
 
-Migrating from [raubreywhite/fhi](https://www.github.com/raubreywhite/dashboards_sykdomspuls_pdf/) to [folkehelseinstituttet/fhi](https://www.github.com/folkehelseinstituttet/dashboards_sykdomspuls_pdf/)
+Migrating from [raubreywhite/fhi](https://www.github.com/raubreywhite/dashboards_sykdomspulspdf/) to [folkehelseinstituttet/fhi](https://www.github.com/folkehelseinstituttet/dashboards_sykdomspulspdf/)
