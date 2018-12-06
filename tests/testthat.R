@@ -1,4 +1,4 @@
 library(testthat)
-library(signalsystemmsis)
+library(sykdomspulspdf)
 
-test_check("signalsystemmsis")
+test_check("sykdomspulspdf")

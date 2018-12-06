@@ -1,7 +1,7 @@
 # devtools::load_all("fhi")
 fhi::DashboardInitialiseOpinionated(
-  NAME="signalsystemmsis",
-  PKG="signalsystemmsis",
+  NAME="sykdomspulspdf",
+  PKG="sykdomspulspdf",
   PACKAGE_DIR=".")
 
 suppressMessages(library(data.table))
@@ -15,8 +15,8 @@ mydate <- format(Sys.time(), "%d.%m.%y")
 fhi::DashboardMsg("/data_raw")
 list.files("/data_raw")
 
-fhi::DashboardMsg("/data_raw/signalsystemmsis")
-list.files("/data_raw/signalsystemmsis")
+fhi::DashboardMsg("/data_raw/sykdomspulspdf")
+list.files("/data_raw/sykdomspulspdf")
 
 if (length(files) == 0) {
   fhi::DashboardMsg("No data")
@@ -31,7 +31,6 @@ if (length(files) == 0) {
     quit(save = "no", status = 0)
   }
 
-<<<<<<< HEAD
   if(RAWmisc::IsFileStable(fhi::DashboardFolder("data_raw",useFile))==F) {
     fhi::DashboardMsg("file no stable")
     quit(save="no", status=0)
@@ -40,13 +39,9 @@ if (length(files) == 0) {
 
 
   d <- fread(fhi::DashboardFolder("data_raw",useFile))
-  fylke <-fread(system.file("extdata", "fylke.csv", package = "signalsystemmsis"))
+  fylke <-fread(system.file("extdata", "fylke.csv", package = "sykdomspulspdf"))
   lastestUpdate <- as.Date(gsub("_","-",LatestRawID()))
-=======
-  d <- fread(fhi::DashboardFolder("data_raw", useFile))
-  fylke <- fread(system.file("extdata", "fylke.csv", package = "signalsystemmsis"))
-  lastestUpdate <- as.Date(gsub("_", "-", LatestRawID()))
->>>>>>> upstream/master
+
 
   fhi::DashboardMsg("Generating monthly pdf")
 

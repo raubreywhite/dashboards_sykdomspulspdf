@@ -24,7 +24,7 @@ firstup <- function(x) {
 #' @export CreatePlots1
 #'
 CreatePlots1 <- function(d, weeknow, Ukenummer, title, yrange) {
-  par(mfrow = c(1, 1), mar = c(2.6, 2.6, 3, .5), oma = c(0, 0, 0, 0))
+  par(mfrow = c(1, 1), mar = c(2.6, 2.6, 1.2, .5), oma = c(0, 0, 0, 0))
 
   plot(c(d[2, 30:52], d[2, 1:29]),
     type = "l", col = "green", xlim = c(1, 52), ylim = c(0, yrange),
@@ -54,10 +54,10 @@ CreatePlots1 <- function(d, weeknow, Ukenummer, title, yrange) {
     lty = 1, col = c("green", "red", "orange", "purple", "blue", "black"),
     lwd = c(1.5, 1.5, 1.5, 1.5, 1.5, 1.5), cex = 0.5, box.lty = 1, box.lwd = 1, text.font = 1, seg.len = 2
   )
-  mtext(title, outer = F, cex = 1, font = 2, line = .5)
+  mtext(title, outer = F, cex = .8, font = 2, line = .5)
   mtext(text = "Ukenummer", side = 1, line = 1.8, cex = .75)
   mtext(text = "Antall konsultasjoner", side = 2, line = 1.8, cex = .75)
-  # box("figure", col="blue")
+  #box("figure", col="blue")
 }
 ###############################################################################
 ##############################################################################
@@ -76,7 +76,6 @@ CreatePlots2 <- function(d1, weeknow, Ukenummer, Fylkename, S, mytittle) {
   ageGroups <- c("0 - 4 \u00E5r", "5 - 19 \u00E5r", "20 - 64 \u00E5r", "65+ \u00E5r")
 
   par(mfrow = c(2, 2), mar = c(2, 2, 2, .5), oma = c(0, 0, 2, 0))
-
 
   for (i in 1:4) {
     d <- selectAgeGroups(d1, ageG = i, S = S)
@@ -101,7 +100,7 @@ CreatePlots2 <- function(d1, weeknow, Ukenummer, Fylkename, S, mytittle) {
     abline(v = c(22, 25), col = "black", lty = 2)
     abline(v = c(34, 40), col = "black", lty = 2)
   }
-  mtext(paste(mytittle, Fylkename, "aldersfordelt", sep = ", "), outer = TRUE, cex = 1, font = 2)
+  mtext(paste(mytittle, Fylkename, "aldersfordelt", sep = ", "), outer = TRUE, cex = 0.8, font = 2)
   # box("figure", col="blue")
   # box("outer", lty="solid", col="green")
 }
