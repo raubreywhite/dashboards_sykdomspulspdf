@@ -23,7 +23,7 @@ firstup <- function(x) {
 #' @import data.table
 #' @export CreatePlots1
 #'
-CreatePlots1 <- function(d, weeknow, Ukenummer, title, yrange,date) {
+CreatePlots1 <- function(d, weeknow, Ukenummer, title, yrange) {
   y <-as.numeric(row.names(d)[dim(d)[1]])
   w <- weeknow
   y5 <-y-5
