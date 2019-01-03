@@ -23,8 +23,7 @@ Vil du vite mer om Sykdomspulsen kan du gå tilbake til hovedsiden til Sykdomspu
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE, results='asis',fig1,  fig.height = 3.8, fig.width = 6.8, fig.align = 'center', fig.pos="H"}
 
-CreatePlots1(alle,weeknow = weeknow, Ukenummer = Ukenummer, title=paste(mytittle, ", ",f,", alle aldersgrupper", sep ="" ),
- yrange=yrange)
+CreatePlots1(alle,weeknow = weeknow, Ukenummer = Ukenummer, title=paste(mytittle, ", ",f,", alle aldersgrupper", sep =""), date=lastestUpdate, yrange=yrange)
 
 ```
 
@@ -36,7 +35,7 @@ Fig. 1: Antall konsultasjoner vedrørende luftveisinfeksjoner per uke i `r f` fo
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE, results='asis',fig2, fig.height = 4.2, fig.width = 6.8, fig.align = 'center'}
 
-CreatePlots2(d1=data,weeknow = weeknow, Ukenummer = Ukenummer,Fylkename=f,S=SYNDROM,mytittle=mytittle)
+CreatePlots2(d1=data,weeknow = weeknow, Ukenummer = Ukenummer,Fylkename=f,S=SYNDROM,mytittle=mytittle, date=lastestUpdate)
 
 ```
 

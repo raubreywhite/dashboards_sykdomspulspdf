@@ -4,7 +4,7 @@
 \alias{CreatePlots1}
 \title{CreatePlots1}
 \usage{
-CreatePlots1(d, weeknow, Ukenummer, title, yrange)
+CreatePlots1(d, weeknow, Ukenummer, title, yrange, date)
 }
 \arguments{
 \item{d}{a}
