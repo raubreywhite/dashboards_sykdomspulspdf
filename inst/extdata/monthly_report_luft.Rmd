@@ -6,7 +6,7 @@ header: "Sist oppdatert: `r format(Sys.time(), '%d.%m.%Y')`"
 #footer: "Sykdomspulsen fra Folkehelseinsttutet \\newline AAA \\newline A \\newline A "
 output: fhi::sykdompuls_luft_document
 fig_caption: true
-spacing: single
+#spacing: single
 ---
 
 # Luftveisinfeksjoner, `r f` {-}

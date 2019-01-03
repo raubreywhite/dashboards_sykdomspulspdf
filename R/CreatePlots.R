@@ -74,7 +74,7 @@ CreatePlots1 <- function(d, weeknow, Ukenummer, title, yrange,date) {
   mtext(title, outer = F, cex = .8, font = 2, line = .5)
   mtext(text = "Ukenummer", side = 1, line = 1.8, cex = .75)
   mtext(text = "Antall konsultasjoner", side = 2, line = 1.8, cex = .75)
-  #box("figure", col="blue")
+  # box("figure", col="blue")
 }
 
 
