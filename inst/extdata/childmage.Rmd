@@ -28,7 +28,7 @@ Fig. 1: Antall konsultasjoner vedrørende mage-tarminfeksjoner per uke i `r f` f
 \endgroup
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE, results='asis', fig.height = 4.2, fig.width = 6.8, fig.align = 'center'}
-CreatePlots2(d1=data,weeknow = weeknow, Ukenummer = Ukenummer,Fylkename=f,S=SYNDROM,mytittle=mytittle, date=alle)
+CreatePlots2(d1=data,weeknow = weeknow, Ukenummer = Ukenummer,Fylkename=f,S=SYNDROM,mytittle=mytittle)
 ``` 
 \begingroup\footnotesize
 

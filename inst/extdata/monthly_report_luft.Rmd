@@ -34,7 +34,7 @@ Fig. 1: Antall konsultasjoner vedrørende luftveisinfeksjoner per uke i `r f` fo
 \endgroup
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE, results='asis',fig2, fig.height = 4.2, fig.width = 6.8, fig.align = 'center'}
-CreatePlots2(d1=data,weeknow = weeknow, Ukenummer = Ukenummer,Fylkename=f,S=SYNDROM,mytittle=mytittle, date=lastestUpdate)
+CreatePlots2(d1=data,weeknow = weeknow, Ukenummer = Ukenummer,Fylkename=f,S=SYNDROM,mytittle=mytittle)
 
 ```
 

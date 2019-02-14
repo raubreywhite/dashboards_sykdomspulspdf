@@ -90,7 +90,7 @@ CreatePlots1 <- function(d, weeknow, Ukenummer, title, yrange) {
 #' @import data.table
 #' @export CreatePlots2
 #'
-CreatePlots2 <- function(d1, weeknow, Ukenummer, Fylkename, S, mytittle,date) {
+CreatePlots2 <- function(d1, weeknow, Ukenummer, Fylkename, S, mytittle) {
   ageGroups <- c("0 - 4 \u00E5r", "5 - 19 \u00E5r", "20 - 64 \u00E5r", "65+ \u00E5r")
 
   par(mfrow = c(2, 2), mar = c(2, 2, 2, .5), oma = c(0, 0, 2, 0))
