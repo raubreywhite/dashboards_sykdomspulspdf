@@ -36,7 +36,6 @@ sykdompulspdf_template_copy_ALL <- function(output_dir, SYNDROM) {
       to = file.path(output_dir, f)
     )
   }
-
 }
 
 #' hi
@@ -68,5 +67,4 @@ sykdompulspdf_template_remove_ALL <- function(output_dir, SYNDROM) {
   for (f in files2) {
     file.remove(file.path(output_dir, f))
   }
-
 }
