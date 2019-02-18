@@ -1,0 +1,39 @@
+---
+params:
+  dev: TRUE
+  date: "`r format(Sys.time(), '%d.%m.%Y')`"
+header: "Sist oppdatert: `r format(Sys.time(), '%d.%m.%Y')`"
+#footer: "Sykdomspulsen fra Folkehelseinsttutet \\newline AAA \\newline A \\newline A "
+output: fhi::sykdompuls_mage_document
+fig_caption: true
+#spacing: single
+---
+
+
+```{r setup, include=FALSE}
+library(knitr)
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+pts <- list(
+  car1 = data.frame(x = rnorm(100), y = rnorm(100)), 
+  car2 = data.frame(x = rnorm(100), y = rnorm(100))
+  )
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+rmd <- sapply(1:length(allfylkeresults),
+  function(x) {
+    knit_expand("childmage.Rmd", x = x)
+  }
+)
+rmd <- paste(rmd, collapse = "\n")
+#cat(rmd)
+```
+
+```{r results = "asis", echo=FALSE, message=FALSE, warning=FALSE}
+rendered <- knit(text = rmd, quiet = TRUE)
+cat(rendered, sep = "\n")
+``` 
+

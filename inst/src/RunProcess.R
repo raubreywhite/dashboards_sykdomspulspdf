@@ -53,8 +53,15 @@ if (length(files) == 0) {
   cat(paste("Last week", weeknow, sep = " "))
 
   ## BY FYLKE
-  for (SYNDROM in CONFIG$SYNDROMES) {
+
+  allfylkeresults <- list()
+  allfylkeresultsdata  <- list()
+  allfylke <-NULL
+  mylistyrange <-list()
+  for (SYNDROM in CONFIG$SYNDROMES[2]) {
     sykdompulspdf_template_copy(fhi::DashboardFolder("data_raw"), SYNDROM)
+    sykdompulspdf_template_copy_ALL(fhi::DashboardFolder("data_raw"), SYNDROM)
+
     fhi::sykdompulspdf_resources_copy(fhi::DashboardFolder("data_raw"))
 
     if (SYNDROM == "mage") {
@@ -66,14 +73,21 @@ if (length(files) == 0) {
     }
 
     ###########################################
+
+
     for (f in fylke$Fylkename) {
       fhi::DashboardMsg(sprintf("PDF: %s", f))
 
       Fylkename <- f
       data <- CleanDataByFylke(d, fylke, f)
       alle <- tapply(getdataout(data, SYNDROM), data[, c("year", "week")], sum)
-      yrange <- max(alle, na.rm = T) + (roundUpNice(max(alle, na.rm = T)) * .20)
 
+      allfylkeresults[[f]] <- alle
+      allfylkeresultsdata[[f]] <- data
+      allfylke <-c(allfylke,f)
+
+      yrange <- max(alle, na.rm = T) + (roundUpNice(max(alle, na.rm = T)) * .20)
+      mylistyrange[[f]] <-yrange
 
       # fhi::RenderExternally()
       rmarkdown::render(
@@ -81,9 +95,19 @@ if (length(files) == 0) {
         output_file = paste(gsub(" ", "", f, fixed = TRUE), "_", add, ".pdf", sep = ""),
         output_dir = fhi::DashboardFolder("results", paste("PDF", mydate, sep = "_"))
       )
+
+
     }
+    rmarkdown::render(
+      input = fhi::DashboardFolder("data_raw", paste("monthly_report_", SYNDROM, "ALL.Rmd", sep = "")),
+      output_file = paste("ALL", "_", add, ".pdf", sep = ""),
+      output_dir = fhi::DashboardFolder("results", paste("PDF", mydate, sep = "_"))
+    )
+
 
     sykdompulspdf_template_remove(fhi::DashboardFolder("data_raw"), SYNDROM)
+    sykdompulspdf_template_remove_ALL(fhi::DashboardFolder("data_raw"), SYNDROM)
+
   }
 
   fhi::sykdompulspdf_resources_remove(fhi::DashboardFolder("data_raw"))
