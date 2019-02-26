@@ -84,10 +84,10 @@ if (length(files) == 0) {
 
       allfylkeresults[[f]] <- alle
       allfylkeresultsdata[[f]] <- data
-      allfylke <-c(allfylke,f)
+      allfylke <- c(allfylke, f)
 
       yrange <- max(alle, na.rm = T) + (roundUpNice(max(alle, na.rm = T)) * .20)
-      mylistyrange[[f]] <-yrange
+      mylistyrange[[f]] <- yrange
 
       # fhi::RenderExternally()
       rmarkdown::render(
@@ -95,8 +95,6 @@ if (length(files) == 0) {
         output_file = paste(gsub(" ", "", f, fixed = TRUE), "_", add, ".pdf", sep = ""),
         output_dir = fhi::DashboardFolder("results", paste("PDF", mydate, sep = "_"))
       )
-
-
     }
     rmarkdown::render(
       input = fhi::DashboardFolder("data_raw", paste("monthly_report_", SYNDROM, "ALL.Rmd", sep = "")),
@@ -107,7 +105,6 @@ if (length(files) == 0) {
 
     sykdompulspdf_template_remove(fhi::DashboardFolder("data_raw"), SYNDROM)
     sykdompulspdf_template_remove_ALL(fhi::DashboardFolder("data_raw"), SYNDROM)
-
   }
 
   fhi::sykdompulspdf_resources_remove(fhi::DashboardFolder("data_raw"))

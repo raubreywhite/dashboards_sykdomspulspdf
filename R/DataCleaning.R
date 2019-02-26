@@ -173,12 +173,12 @@ CreateLatestDoneFile <- function(file = fhi::DashboardFolder("data_clean", paste
 #' @param data a
 #' @export findLastWeek
 findLastWeek <- function(date, data) {
-  #lastweek <- as.Date(date)
-  lastweek <-53
+  # lastweek <- as.Date(date)
+  lastweek <- 53
   rows <- dim(data)[1]
   for (l in lastweek:1) {
-    if (!is.na(data[rows-1, l]) && !is.na(data[rows, l])) {
-      if (data[rows-1, l] / data[rows, l] < 1.3) {
+    if (!is.na(data[rows - 1, l]) && !is.na(data[rows, l])) {
+      if (data[rows - 1, l] / data[rows, l] < 1.3) {
         myweek <- l
         break
       }
