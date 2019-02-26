@@ -55,9 +55,9 @@ if (length(files) == 0) {
   ## BY FYLKE
 
   allfylkeresults <- list()
-  allfylkeresultsdata  <- list()
-  allfylke <-NULL
-  mylistyrange <-list()
+  allfylkeresultsdata <- list()
+  allfylke <- NULL
+  mylistyrange <- list()
   for (SYNDROM in CONFIG$SYNDROMES) {
     sykdompulspdf_template_copy(fhi::DashboardFolder("data_raw"), SYNDROM)
     sykdompulspdf_template_copy_ALL(fhi::DashboardFolder("data_raw"), SYNDROM)
