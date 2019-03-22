@@ -8,7 +8,8 @@ sykdompulspdf_template_copy <- function(output_dir, SYNDROM) {
   for (f in files) {
     file.copy(
       from = file.path(dir, f),
-      to = file.path(output_dir, f)
+      to = file.path(output_dir, f),
+      overwrite = T
     )
   }
 }
@@ -26,14 +27,16 @@ sykdompulspdf_template_copy_ALL <- function(output_dir, SYNDROM) {
   for (f in files1) {
     file.copy(
       from = file.path(dir, f),
-      to = file.path(output_dir, f)
+      to = file.path(output_dir, f),
+      overwrite = T
     )
   }
 
   for (f in files2) {
     file.copy(
       from = file.path(dir, f),
-      to = file.path(output_dir, f)
+      to = file.path(output_dir, f),
+      overwrite = T
     )
   }
 }

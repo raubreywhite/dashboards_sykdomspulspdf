@@ -21,7 +21,7 @@ En økning av mage-tarm konsultasjoner sees ofte på vinterstid. Denne økningen
 Vil du vite mer om Sykdomspulsen kan du gå tilbake til hovedsiden til Sykdomspulsen og klikke på «Om Sykdomspulsen».
 \endgroup
 
-```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE, results='asis',fig1,  fig.height = 3.8, fig.width = 6.8, fig.align = 'center', fig.pos="H"}
+```{r echo=FALSE, message=FALSE, warning=FALSE, fig.align='center', fig.pos="H", fig.width=6.8, message=FALSE, warning=FALSE, fig1,  fig.height=3.8, results='asis'}
 
 CreatePlots1(d=alle,weeknow = weeknow, Ukenummer = Ukenummer, title=paste(mytittle, ", ",f,", alle aldersgrupper", sep =""), yrange=yrange)
 
@@ -32,7 +32,7 @@ Fig. 1: Antall konsultasjoner vedrørende mage-tarminfeksjoner per uke i `r f` f
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE, results='asis',fig2, fig.height = 4.2, fig.width = 6.8, fig.align = 'center'}
 
-CreatePlots2(d1=data,weeknow = weeknow, Ukenummer = Ukenummer,Fylkename=f,S=SYNDROM,mytittle=mytittle, date=alle)
+CreatePlots2(d1=data,weeknow = weeknow, Ukenummer = Ukenummer,Fylkename=f,S=SYNDROM,mytittle=mytittle)
 
 ```
 

@@ -206,7 +206,7 @@ CleanData <- function(d) {
 
   d[, Fylke := as.numeric(substr(d$municip, 8, 9))]
   d[, year := format.Date(date, "%G")]
-  d <- d[year %in% c("2018", "2017", "2016", "2015", "2014", "2013", "2012")]
+  d <- d[year %in% c("2019","2018", "2017", "2016", "2015", "2014", "2013", "2012")]
   d[, month := format.Date(date, "%m")]
   d[, week := format.Date(date, "%V")]
 
@@ -237,7 +237,7 @@ CleanDataByFylke <- function(d, FylkeData, myfylke) {
   d <- merge(d, FylkeData, by = "Fylke")
   d <- d[Fylkename %in% myfylke]
   d[, year := format.Date(date, "%G")]
-  d <- d[year %in% c("2018", "2017", "2016", "2015", "2014", "2013", "2012")]
+  d <- d[year %in% c("2019","2018", "2017", "2016", "2015", "2014", "2013", "2012")]
   d[, month := format.Date(date, "%m")]
   d[, week := format.Date(date, "%V")]
 
