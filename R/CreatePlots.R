@@ -32,7 +32,6 @@ CreatePlots1 <- function(d, weeknow, Ukenummer, title, yrange) {
   par(mfrow = c(1, 1), mar = c(2.6, 2.6, 1.4, .5), oma = c(0, 0, 0, 0))
 
   if (w >= 1 && w <= 29) {
-    print(1)
     plot(c(d[ind - 1, 30:52], d[ind, 1:29]),
       type = "l", col = "green", xlim = c(1, 52), ylim = c(0, yrange),
       main = "", xlab = "", ylab = "", lwd = 1.5, cex.lab = 0.75, cex.main = 2, axes = F
@@ -41,7 +40,7 @@ CreatePlots1 <- function(d, weeknow, Ukenummer, title, yrange) {
     lines(c(d[ind + 1, 30:52], d[ind + 2, 1:29]), type = "l", col = "orange", lwd = 1.5)
     lines(c(d[ind + 2, 30:52], d[ind + 3, 1:29]), type = "l", col = "purple", lwd = 1.5)
     lines(c(d[ind + 3, 30:52], d[ind + 4, 1:29]), type = "l", col = "blue", lwd = 1.5)
-    lines(c(d[ind + 4, 30:52], d[ind + 5, 1:29]), type = "l", col = "black", lwd = 2)
+    lines(c(d[ind + 4, 30:52], d[ind + 5, 1:weeknow]), type = "l", col = "black", lwd = 2)
   } else if (w >= 30 && w <= 52) {
     plot(c(d[ind, 30:52], d[ind + 1, 1:29]),
       type = "l", col = "green", xlim = c(1, 52), ylim = c(0, yrange),
@@ -65,7 +64,7 @@ CreatePlots1 <- function(d, weeknow, Ukenummer, title, yrange) {
   text(37, 0, "P\u00E5ske", col = "black", cex = 0.75)
 
   legend <- NULL
-  for (r in 5:0) {
+  for (r in 6:1) {
     rr <- r - 1
     legend <- c(legend, (paste(y - r, "/", y - rr)))
   }
@@ -117,7 +116,7 @@ CreatePlots2 <- function(d1, weeknow, Ukenummer, Fylkename, S, mytittle) {
       lines(c(d[ind + 1, 30:52], d[ind + 2, 1:29]), type = "l", col = "orange", lwd = 1)
       lines(c(d[ind + 2, 30:52], d[ind + 3, 1:29]), type = "l", col = "purple", lwd = 1)
       lines(c(d[ind + 3, 30:52], d[ind + 4, 1:29]), type = "l", col = "blue", lwd = 1)
-      lines(c(d[ind + 4, 30:52], d[ind + 5, 1:29]), type = "l", col = "black", lwd = 2)
+      lines(c(d[ind + 4, 30:52], d[ind + 5, 1:weeknow]), type = "l", col = "black", lwd = 2)
     } else if (w >= 30 && w <= 52) {
       plot(c(d[ind, 30:52], d[ind + 1, 1:29]),
         type = "l", col = "green", xlim = c(1, 52), ylim = c(0, yrange),
