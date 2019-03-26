@@ -1,6 +1,6 @@
 Package: sykdomspulspdf
 Title: Monthly production of pdfs for the Norwegian Syndromic Surveillance System - NorSySS
-Version: 2019.02.26
+Version: 2019.03.26
 Authors@R: person("B", "V", email = "beva@fhi.com", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
 Depends: R (>= 3.4.0)
