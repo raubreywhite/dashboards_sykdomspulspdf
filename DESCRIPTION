@@ -18,4 +18,4 @@ Imports:
 Suggests: testthat
 Remotes: folkehelseinstituttet/fhi
 Additional_repositories: https://folkehelseinstituttet.github.io/drat/, https://raubreywhite.github.io/drat/
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1

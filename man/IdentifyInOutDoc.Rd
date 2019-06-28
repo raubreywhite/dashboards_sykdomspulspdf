@@ -5,8 +5,8 @@
 \title{IdentifyInOutDoc}
 \usage{
 IdentifyInOutDoc(raw = list.files(fhi::DashboardFolder("data_raw"),
-  "^partially_formatted_"), fylke = fread(system.file("extdata", "fylke.csv",
-  package = "sykdomspulspdf")),
+  "^partially_formatted_"), fylke = fread(system.file("extdata",
+  "fylke.csv", package = "sykdomspulspdf")),
   indoc = list.files(fhi::DashboardFolder("data_raw"), "in_"))
 }
 \arguments{

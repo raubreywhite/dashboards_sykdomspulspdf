@@ -25,7 +25,7 @@ pts <- list(
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 rmd <- sapply(1:length(allfylkeresults),
   function(x) {
-    knit_expand("childmage.Rmd", x = x)
+    knit_expand(childtemplate, x = x)
   }
 )
 rmd <- paste(rmd, collapse = "\n")
