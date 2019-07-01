@@ -53,9 +53,8 @@ if (length(files) == 0) {
   mylistyrange <- list()
 
   for (SYNDROM in CONFIG$SYNDROMES) {
-
     sykdompulspdf_template_copy(fhi::DashboardFolder("data_raw"), SYNDROM)
-    #sykdompulspdf_template_copy_ALL(fhi::DashboardFolder("data_raw"), SYNDROM)
+    # sykdompulspdf_template_copy_ALL(fhi::DashboardFolder("data_raw"), SYNDROM)
     fhi::sykdompulspdf_resources_copy(fhi::DashboardFolder("data_raw"))
 
     if (SYNDROM == "mage") {
@@ -66,20 +65,21 @@ if (length(files) == 0) {
       data <- CleanData(d)
       alle <- tapply(data$gastro, data[, c("year", "week")], sum)
       weeknow <- findLastWeek(lastestUpdate, alle) ### need to be fixed
-      title="Mage-tarminfeksjoner, Norge, Alle aldersgrupper"
+      title <- "Mage-tarminfeksjoner, Norge, Alle aldersgrupper"
       yrange <- max(alle, na.rm = T) + (roundUpNice(max(alle, na.rm = T)) * .20)
 
-      CreatePlotsNorway(d=alle, weeknow=weeknow, Ukenummer=Ukenummer, title, yrange)
-      dev.print(svg, fhi::DashboardFolder("results",paste("gastro Norge alle alder", Sys.Date(),"svg",sep = ".")),
-                                        width = 16, height = 12)
+      CreatePlotsNorway(d = alle, weeknow = weeknow, Ukenummer = Ukenummer, title, yrange)
+      dev.print(svg, fhi::DashboardFolder("results", paste("gastro Norge alle alder", Sys.Date(), "svg", sep = ".")),
+        width = 16, height = 12
+      )
 
 
       # Alle konsultasjoner in Norway by age:
-      CreatePlotsNorwayByAge(d1=data,weeknow = weeknow, Ukenummer = Ukenummer,Fylkename=f,S=SYNDROM,mytittle=mytittle)
-      dev.print(svg, fhi::DashboardFolder("results",paste("gastro Norge Aldersfordelt", Sys.Date(),"svg",sep = ".")),
-                width = 16, height = 12)
+      CreatePlotsNorwayByAge(d1 = data, weeknow = weeknow, Ukenummer = Ukenummer, Fylkename = f, S = SYNDROM, mytittle = mytittle)
+      dev.print(svg, fhi::DashboardFolder("results", paste("gastro Norge Aldersfordelt", Sys.Date(), "svg", sep = ".")),
+        width = 16, height = 12
+      )
       dev.off()
-
     } else if (SYNDROM == "luft") {
       add <- "luftvei"
       mytittle <- "Luftveisinfeksjoner"
@@ -87,24 +87,25 @@ if (length(files) == 0) {
       # Alle konsultasjoner in Norway:
       data <- CleanData(d)
       alle <- tapply(data$respiratory, data[, c("year", "week")], sum)
-      title="Mage-tarminfeksjoner, Norge, Alle aldersgrupper"
+      title <- "Mage-tarminfeksjoner, Norge, Alle aldersgrupper"
       yrange <- max(alle, na.rm = T) + (roundUpNice(max(alle, na.rm = T)) * .20)
 
-      CreatePlotsNorway(d=alle, weeknow=weeknow, Ukenummer=Ukenummer, title, yrange)
-      dev.print(svg, fhi::DashboardFolder("results",paste("respiratory Norge alle alder", Sys.Date(),"svg",sep = ".")),
-                width = 16, height = 12)
+      CreatePlotsNorway(d = alle, weeknow = weeknow, Ukenummer = Ukenummer, title, yrange)
+      dev.print(svg, fhi::DashboardFolder("results", paste("respiratory Norge alle alder", Sys.Date(), "svg", sep = ".")),
+        width = 16, height = 12
+      )
 
 
       # Alle konsultasjoner in Norway by age:
-      CreatePlotsNorwayByAge(d1=data,weeknow = weeknow, Ukenummer = Ukenummer,Fylkename=f,S=SYNDROM,mytittle=mytittle)
-      dev.print(svg, fhi::DashboardFolder("results",paste("respiratory Norge Aldersfordelt", Sys.Date(),"svg",sep = ".")),
-                width = 16, height = 12)
+      CreatePlotsNorwayByAge(d1 = data, weeknow = weeknow, Ukenummer = Ukenummer, Fylkename = f, S = SYNDROM, mytittle = mytittle)
+      dev.print(svg, fhi::DashboardFolder("results", paste("respiratory Norge Aldersfordelt", Sys.Date(), "svg", sep = ".")),
+        width = 16, height = 12
+      )
       dev.off()
-
     }
 
     ###########################################
-    typetemplate <- fread(fhi::DashboardFolder("data_raw", paste("typetemplate_",SYNDROM,".txt", sep="")))
+    typetemplate <- fread(fhi::DashboardFolder("data_raw", paste("typetemplate_", SYNDROM, ".txt", sep = "")))
     ## BY FYLKE
     for (f in fylke$Fylkename) {
       fhi::DashboardMsg(sprintf("PDF: %s", f))
@@ -123,8 +124,8 @@ if (length(files) == 0) {
 
       # fhi::RenderExternally()
 
-      nametemplate <- unique(typetemplate[V1==f,V3])
-      childtemplate <- unique(typetemplate[V1==f,V4])
+      nametemplate <- unique(typetemplate[V1 == f, V3])
+      childtemplate <- unique(typetemplate[V1 == f, V4])
 
       rmarkdown::render(
         input = fhi::DashboardFolder("data_raw", paste(nametemplate, SYNDROM, ".Rmd", sep = "")),
@@ -140,7 +141,7 @@ if (length(files) == 0) {
 
 
     sykdompulspdf_template_remove(fhi::DashboardFolder("data_raw"), SYNDROM)
-    #sykdompulspdf_template_remove_ALL(fhi::DashboardFolder("data_raw"), SYNDROM)
+    # sykdompulspdf_template_remove_ALL(fhi::DashboardFolder("data_raw"), SYNDROM)
   }
 
   fhi::sykdompulspdf_resources_remove(fhi::DashboardFolder("data_raw"))
