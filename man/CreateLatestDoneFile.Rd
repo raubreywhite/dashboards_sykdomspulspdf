@@ -4,8 +4,8 @@
 \alias{CreateLatestDoneFile}
 \title{CreateLatestDoneFile}
 \usage{
-CreateLatestDoneFile(file = fhi::DashboardFolder("data_clean", paste0("done_",
-  LatestRawID(), ".txt")))
+CreateLatestDoneFile(file = fhi::DashboardFolder("data_clean",
+  paste0("done_", LatestRawID(), ".txt")))
 }
 \arguments{
 \item{file}{a}

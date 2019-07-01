@@ -4,8 +4,8 @@
 \alias{DeleteLatestDoneFile}
 \title{DeleteLatestDoneFile}
 \usage{
-DeleteLatestDoneFile(file = fhi::DashboardFolder("data_clean", paste0("done_",
-  LatestRawID(), ".txt")))
+DeleteLatestDoneFile(file = fhi::DashboardFolder("data_clean",
+  paste0("done_", LatestRawID(), ".txt")))
 }
 \arguments{
 \item{file}{a}

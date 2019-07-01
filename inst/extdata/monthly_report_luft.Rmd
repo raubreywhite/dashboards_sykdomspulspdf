@@ -21,7 +21,7 @@ Vil du vite mer om Sykdomspulsen kan du gå tilbake til hovedsiden til Sykdomspu
 \endgroup
 
 
-```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE, results='asis',fig1,  fig.height = 3.8, fig.width = 6.8, fig.align = 'center', fig.pos="H"}
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=TRUE, results='asis',fig1,  fig.height = 4, fig.width = 4, fig.align = 'center', fig.pos="H"}
 
 CreatePlots1(alle,weeknow = weeknow, Ukenummer = Ukenummer, title=paste(mytittle, ", ",f,", alle aldersgrupper", sep =""), yrange=yrange)
 
