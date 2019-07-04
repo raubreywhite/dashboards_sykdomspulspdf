@@ -66,7 +66,7 @@ if (length(files) == 0) {
       data <- CleanData(d)
       alle <- tapply(data$gastro, data[, c("year", "week")], sum)
       weeknow <- findLastWeek(lastestUpdate, alle) ### need to be fixed
-      title="Mage-tarminfeksjoner, Norge, Alle aldersgrupper"
+      title="Mage-tarminfeksjoner, Norge, alle aldersgrupper"
       yrange <- max(alle, na.rm = T) + (roundUpNice(max(alle, na.rm = T)) * .20)
 
       CreatePlotsNorway(d=alle, weeknow=weeknow, Ukenummer=Ukenummer, title, yrange)
@@ -87,7 +87,7 @@ if (length(files) == 0) {
       # Alle konsultasjoner in Norway:
       data <- CleanData(d)
       alle <- tapply(data$respiratory, data[, c("year", "week")], sum)
-      title="Mage-tarminfeksjoner, Norge, Alle aldersgrupper"
+      title="Luftveisinfeksjoner, Norge, alle aldersgrupper"
       yrange <- max(alle, na.rm = T) + (roundUpNice(max(alle, na.rm = T)) * .20)
 
       CreatePlotsNorway(d=alle, weeknow=weeknow, Ukenummer=Ukenummer, title, yrange)

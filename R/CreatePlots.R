@@ -72,7 +72,7 @@ CreatePlots1 <- function(d, weeknow, Ukenummer, title, yrange) {
   q <- legend("topright",
     inset = .00, roundUpNice(yrange), legend = legend,
     lty = 1, col = c("green", "red", "orange", "purple", "blue", "black"),
-    lwd = c(1.5, 1.5, 1.5, 1.5, 1.5, 1.5), cex = 0.5, box.lty = 1, box.lwd = 1, text.font = 1, seg.len = 2
+    lwd = c(1.2, 1.2, 1.2, 1.2, 1.2, 1.2), cex = 0.45, box.lty = 1, box.lwd = 1, text.font = 1, seg.len = 2
   )
   mtext(title, outer = F, cex = 0.8, font = 2, line = .5)
   mtext(text = "Ukenummer", side = 1, line = 1.8, cex = .75)
@@ -144,7 +144,7 @@ CreatePlotsNorway <- function(d, weeknow, Ukenummer, title, yrange) {
   q <- legend("topright",
               inset = .00, roundUpNice(yrange), legend = legend,
               lty = 1, col = c("green", "red", "orange", "purple", "blue", "black"),
-              lwd = c(4, 4, 4, 4, 4, 4), cex=1.2,text.width=3.5, y.intersp=.4)
+              lwd = c(4, 4, 4, 4, 4, 4), cex=1.1,text.width=3.2, y.intersp=.4)
 
   mtext(title, outer = F, cex = 1.7, font = 2, line = .5)
   mtext(text = "Ukenummer", side = 1, line = 2.8, cex = 1.5,font = 2)
@@ -274,7 +274,7 @@ CreatePlotsNorwayByAge <- function(d1, weeknow, Ukenummer, Fylkename, S, mytittl
     abline(v = c(34, 40), col = "black", lty = 2)
   }
 
-  mtext(paste(mytittle, Fylkename, "aldersfordelt", sep = ", "), outer = TRUE, cex = 2, font = 1)
+  mtext(paste(mytittle, "Norge, aldersfordelt", sep = ", "), outer = TRUE, cex = 2, font = 1)
   # box("figure", col="blue")
   # box("outer", lty="solid", col="green")
 }
