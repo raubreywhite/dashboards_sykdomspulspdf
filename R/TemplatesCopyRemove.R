@@ -26,5 +26,3 @@ sykdompulspdf_template_remove <- function(output_dir, SYNDROM) {
     file.remove(file.path(output_dir, f))
   }
 }
-
-
