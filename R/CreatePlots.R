@@ -41,6 +41,12 @@ CreatePlots1 <- function(d, weeknow, Ukenummer, title, yrange) {
     lines(c(d[ind + 2, 30:52], d[ind + 3, 1:29]), type = "l", col = "purple", lwd = 1.5)
     lines(c(d[ind + 3, 30:52], d[ind + 4, 1:29]), type = "l", col = "blue", lwd = 1.5)
     lines(c(d[ind + 4, 30:52], d[ind + 5, 1:weeknow]), type = "l", col = "black", lwd = 2)
+
+    legend <- NULL
+    for (r in 6:1) {
+      rr <- r - 1
+      legend <- c(legend, (paste(y - r, "/", y - rr)))
+    }
   } else if (w >= 30 && w <= 52) {
     plot(c(d[ind, 30:52], d[ind + 1, 1:29]),
       type = "l", col = "green", xlim = c(1, 52), ylim = c(0, yrange),
@@ -51,6 +57,12 @@ CreatePlots1 <- function(d, weeknow, Ukenummer, title, yrange) {
     lines(c(d[ind + 3, 30:52], d[ind + 4, 1:29]), type = "l", col = "purple", lwd = 1.5)
     lines(c(d[ind + 4, 30:52], d[ind + 5, 1:29]), type = "l", col = "blue", lwd = 1.5)
     lines(d[ind + 5, 30:weeknow], type = "l", col = "black", lwd = 2)
+
+    legend <- NULL
+    for (r in 5:0) {
+      rr <- r - 1
+      legend <- c(legend, (paste(y - r, "/", y - rr)))
+    }
   }
 
   q <- axis(1, at = 1:52, labels = Ukenummer, las = 1, cex.axis = 0.7)
@@ -63,16 +75,10 @@ CreatePlots1 <- function(d, weeknow, Ukenummer, title, yrange) {
   text(23.5, 0, "Jul/Nytt\u00E5r", col = "black", cex = 0.75)
   text(37, 0, "P\u00E5ske", col = "black", cex = 0.75)
 
-  legend <- NULL
-  for (r in 6:1) {
-    rr <- r - 1
-    legend <- c(legend, (paste(y - r, "/", y - rr)))
-  }
-
   q <- legend("topright",
     inset = .00, roundUpNice(yrange), legend = legend,
     lty = 1, col = c("green", "red", "orange", "purple", "blue", "black"),
-    lwd = c(1.5, 1.5, 1.5, 1.5, 1.5, 1.5), cex = 0.5, box.lty = 1, box.lwd = 1, text.font = 1, seg.len = 2
+    lwd = c(1.2, 1.2, 1.2, 1.2, 1.2, 1.2), cex = 0.45, box.lty = 1, box.lwd = 1, text.font = 1, seg.len = 2
   )
   mtext(title, outer = F, cex = 0.8, font = 2, line = .5)
   mtext(text = "Ukenummer", side = 1, line = 1.8, cex = .75)
@@ -112,6 +118,13 @@ CreatePlotsNorway <- function(d, weeknow, Ukenummer, title, yrange) {
     lines(c(d[ind + 2, 30:52], d[ind + 3, 1:29]), type = "l", col = "purple", lwd = 4)
     lines(c(d[ind + 3, 30:52], d[ind + 4, 1:29]), type = "l", col = "blue", lwd = 4)
     lines(c(d[ind + 4, 30:52], d[ind + 5, 1:weeknow]), type = "l", col = "black", lwd = 6)
+
+    legend <- NULL
+    for (r in 6:1) {
+      rr <- r - 1
+      legend <- c(legend, (paste(y - r, "/", y - rr)))
+    }
+
   } else if (w >= 30 && w <= 52) {
     plot(c(d[ind, 30:52], d[ind + 1, 1:29]),
       type = "l", col = "green", xlim = c(1, 52), ylim = c(0, yrange),
@@ -145,6 +158,7 @@ CreatePlotsNorway <- function(d, weeknow, Ukenummer, title, yrange) {
     lty = 1, col = c("green", "red", "orange", "purple", "blue", "black"),
     lwd = c(4, 4, 4, 4, 4, 4), cex = 1.2, text.width = 3.5, y.intersp = .4
   )
+
 
   mtext(title, outer = F, cex = 1.7, font = 2, line = .5)
   mtext(text = "Ukenummer", side = 1, line = 2.8, cex = 1.5, font = 2)
@@ -274,7 +288,7 @@ CreatePlotsNorwayByAge <- function(d1, weeknow, Ukenummer, Fylkename, S, mytittl
     abline(v = c(34, 40), col = "black", lty = 2)
   }
 
-  mtext(paste(mytittle, Fylkename, "aldersfordelt", sep = ", "), outer = TRUE, cex = 2, font = 1)
+  mtext(paste(mytittle, "Norge, aldersfordelt", sep = ", "), outer = TRUE, cex = 2, font = 1)
   # box("figure", col="blue")
   # box("outer", lty="solid", col="green")
 }
