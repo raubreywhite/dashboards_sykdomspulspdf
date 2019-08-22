@@ -124,7 +124,6 @@ CreatePlotsNorway <- function(d, weeknow, Ukenummer, title, yrange) {
       rr <- r - 1
       legend <- c(legend, (paste(y - r, "/", y - rr)))
     }
-
   } else if (w >= 30 && w <= 52) {
     plot(c(d[ind, 30:52], d[ind + 1, 1:29]),
       type = "l", col = "green", xlim = c(1, 52), ylim = c(0, yrange),
