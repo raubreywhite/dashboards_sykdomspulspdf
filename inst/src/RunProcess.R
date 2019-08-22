@@ -73,17 +73,18 @@ if (length(files) == 0) {
       title="Mage-tarminfeksjoner, Norge, alle aldersgrupper"
       yrange <- max(alle, na.rm = T) + (roundUpNice(max(alle, na.rm = T)) * .20)
 
-      CreatePlotsNorway(d = alle, weeknow = weeknow, Ukenummer = Ukenummer, title, yrange)
-      dev.print(svg, fhi::DashboardFolder("results", paste("gastro Norge alle alder", Sys.Date(), "svg", sep = ".")),
-        width = 16, height = 12
+      svg(filename=fhi::DashboardFolder("results", paste("gastro Norge alle alder", Sys.Date(), "svg", sep = ".")),
+          width = 16, height = 12
       )
+      CreatePlotsNorway(d = alle, weeknow = weeknow, Ukenummer = Ukenummer, title, yrange)
+      dev.off()
 
 
       # Alle konsultasjoner in Norway by age:
-      CreatePlotsNorwayByAge(d1 = data, weeknow = weeknow, Ukenummer = Ukenummer, Fylkename = f, S = SYNDROM, mytittle = mytittle)
-      dev.print(svg, fhi::DashboardFolder("results", paste("gastro Norge Aldersfordelt", Sys.Date(), "svg", sep = ".")),
-        width = 16, height = 12
+      svg(filename=fhi::DashboardFolder("results", paste("gastro Norge Aldersfordelt", Sys.Date(), "svg", sep = ".")),
+          width = 16, height = 12
       )
+      CreatePlotsNorwayByAge(d1 = data, weeknow = weeknow, Ukenummer = Ukenummer, Fylkename = f, S = SYNDROM, mytittle = mytittle)
       dev.off()
     } else if (SYNDROM == "luft") {
       add <- "luftvei"
@@ -97,17 +98,17 @@ if (length(files) == 0) {
 
       yrange <- max(alle, na.rm = T) + (roundUpNice(max(alle, na.rm = T)) * .20)
 
-      CreatePlotsNorway(d = alle, weeknow = weeknow, Ukenummer = Ukenummer, title, yrange)
-      dev.print(svg, fhi::DashboardFolder("results", paste("respiratory Norge alle alder", Sys.Date(), "svg", sep = ".")),
-        width = 16, height = 12
+      svg(filename=fhi::DashboardFolder("results", paste("respiratory Norge alle alder", Sys.Date(), "svg", sep = ".")),
+          width = 16, height = 12
       )
-
+      CreatePlotsNorway(d = alle, weeknow = weeknow, Ukenummer = Ukenummer, title, yrange)
+      dev.off()
 
       # Alle konsultasjoner in Norway by age:
-      CreatePlotsNorwayByAge(d1 = data, weeknow = weeknow, Ukenummer = Ukenummer, Fylkename = f, S = SYNDROM, mytittle = mytittle)
-      dev.print(svg, fhi::DashboardFolder("results", paste("respiratory Norge Aldersfordelt", Sys.Date(), "svg", sep = ".")),
-        width = 16, height = 12
+      svg(filename=fhi::DashboardFolder("results", paste("respiratory Norge Aldersfordelt", Sys.Date(), "svg", sep = ".")),
+          width = 16, height = 12
       )
+      CreatePlotsNorwayByAge(d1 = data, weeknow = weeknow, Ukenummer = Ukenummer, Fylkename = f, S = SYNDROM, mytittle = mytittle)
       dev.off()
     }
 
