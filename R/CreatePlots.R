@@ -41,6 +41,12 @@ CreatePlots1 <- function(d, weeknow, Ukenummer, title, yrange) {
     lines(c(d[ind + 2, 30:52], d[ind + 3, 1:29]), type = "l", col = "purple", lwd = 1.5)
     lines(c(d[ind + 3, 30:52], d[ind + 4, 1:29]), type = "l", col = "blue", lwd = 1.5)
     lines(c(d[ind + 4, 30:52], d[ind + 5, 1:weeknow]), type = "l", col = "black", lwd = 2)
+
+    legend <- NULL
+    for (r in 6:1) {
+      rr <- r - 1
+      legend <- c(legend, (paste(y - r, "/", y - rr)))
+    }
   } else if (w >= 30 && w <= 52) {
     plot(c(d[ind, 30:52], d[ind + 1, 1:29]),
       type = "l", col = "green", xlim = c(1, 52), ylim = c(0, yrange),
@@ -51,6 +57,12 @@ CreatePlots1 <- function(d, weeknow, Ukenummer, title, yrange) {
     lines(c(d[ind + 3, 30:52], d[ind + 4, 1:29]), type = "l", col = "purple", lwd = 1.5)
     lines(c(d[ind + 4, 30:52], d[ind + 5, 1:29]), type = "l", col = "blue", lwd = 1.5)
     lines(d[ind + 5, 30:weeknow], type = "l", col = "black", lwd = 2)
+
+    legend <- NULL
+    for (r in 5:0) {
+      rr <- r - 1
+      legend <- c(legend, (paste(y - r, "/", y - rr)))
+    }
   }
 
   q <- axis(1, at = 1:52, labels = Ukenummer, las = 1, cex.axis = 0.7)
@@ -62,12 +74,6 @@ CreatePlots1 <- function(d, weeknow, Ukenummer, title, yrange) {
   abline(v = c(34, 40), col = "black", lty = 2)
   text(23.5, 0, "Jul/Nytt\u00E5r", col = "black", cex = 0.75)
   text(37, 0, "P\u00E5ske", col = "black", cex = 0.75)
-
-  legend <- NULL
-  for (r in 6:1) {
-    rr <- r - 1
-    legend <- c(legend, (paste(y - r, "/", y - rr)))
-  }
 
   q <- legend("topright",
     inset = .00, roundUpNice(yrange), legend = legend,
@@ -112,6 +118,13 @@ CreatePlotsNorway <- function(d, weeknow, Ukenummer, title, yrange) {
     lines(c(d[ind + 2, 30:52], d[ind + 3, 1:29]), type = "l", col = "purple", lwd = 4)
     lines(c(d[ind + 3, 30:52], d[ind + 4, 1:29]), type = "l", col = "blue", lwd = 4)
     lines(c(d[ind + 4, 30:52], d[ind + 5, 1:weeknow]), type = "l", col = "black", lwd = 6)
+
+    legend <- NULL
+    for (r in 6:1) {
+      rr <- r - 1
+      legend <- c(legend, (paste(y - r, "/", y - rr)))
+    }
+
   } else if (w >= 30 && w <= 52) {
     plot(c(d[ind, 30:52], d[ind + 1, 1:29]),
       type = "l", col = "green", xlim = c(1, 52), ylim = c(0, yrange),

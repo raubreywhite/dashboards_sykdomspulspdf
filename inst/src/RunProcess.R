@@ -65,6 +65,11 @@ if (length(files) == 0) {
       data <- CleanData(d)
       alle <- tapply(data$gastro, data[, c("year", "week")], sum)
       weeknow <- findLastWeek(lastestUpdate, alle) ### need to be fixed
+
+      if (weeknow==30) {
+        weeknow <-29
+      }
+
       title="Mage-tarminfeksjoner, Norge, alle aldersgrupper"
       yrange <- max(alle, na.rm = T) + (roundUpNice(max(alle, na.rm = T)) * .20)
 
