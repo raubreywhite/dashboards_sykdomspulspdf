@@ -21,8 +21,8 @@ ggplot_CreatePlots1 <- function(d, weeknow, Ukenummer, title, yrange) {
 
   if (w >= 1 && w <= 29) {
     plot(c(d[ind - 1, 30:52], d[ind, 1:29]),
-         type = "l", col = "green", xlim = c(1, 52), ylim = c(0, yrange),
-         main = "", xlab = "", ylab = "", lwd = 1.5, cex.lab = 0.75, cex.main = 2, axes = F
+      type = "l", col = "green", xlim = c(1, 52), ylim = c(0, yrange),
+      main = "", xlab = "", ylab = "", lwd = 1.5, cex.lab = 0.75, cex.main = 2, axes = F
     )
     lines(c(d[ind, 30:52], d[ind + 1, 1:29]), type = "l", col = "red", lwd = 1.5)
     lines(c(d[ind + 1, 30:52], d[ind + 2, 1:29]), type = "l", col = "orange", lwd = 1.5)
@@ -37,8 +37,8 @@ ggplot_CreatePlots1 <- function(d, weeknow, Ukenummer, title, yrange) {
     }
   } else if (w >= 30 && w <= 52) {
     plot(c(d[ind, 30:52], d[ind + 1, 1:29]),
-         type = "l", col = "green", xlim = c(1, 52), ylim = c(0, yrange),
-         main = "", xlab = "", ylab = "", lwd = 1.5, cex.lab = 0.75, cex.main = 2, axes = F
+      type = "l", col = "green", xlim = c(1, 52), ylim = c(0, yrange),
+      main = "", xlab = "", ylab = "", lwd = 1.5, cex.lab = 0.75, cex.main = 2, axes = F
     )
     lines(c(d[ind + 1, 30:52], d[ind + 2, 1:29]), type = "l", col = "red", lwd = 1.5)
     lines(c(d[ind + 2, 30:52], d[ind + 3, 1:29]), type = "l", col = "orange", lwd = 1.5)
@@ -64,9 +64,9 @@ ggplot_CreatePlots1 <- function(d, weeknow, Ukenummer, title, yrange) {
   text(37, 0, "P\u00E5ske", col = "black", cex = 0.75)
 
   q <- legend("topright",
-              inset = .00, roundUpNice(yrange), legend = legend,
-              lty = 1, col = c("green", "red", "orange", "purple", "blue", "black"),
-              lwd = c(1.2, 1.2, 1.2, 1.2, 1.2, 1.2), cex = 0.45, box.lty = 1, box.lwd = 1, text.font = 1, seg.len = 2
+    inset = .00, roundUpNice(yrange), legend = legend,
+    lty = 1, col = c("green", "red", "orange", "purple", "blue", "black"),
+    lwd = c(1.2, 1.2, 1.2, 1.2, 1.2, 1.2), cex = 0.45, box.lty = 1, box.lwd = 1, text.font = 1, seg.len = 2
   )
   mtext(title, outer = F, cex = 0.8, font = 2, line = .5)
   mtext(text = "Ukenummer", side = 1, line = 1.8, cex = .75)
@@ -89,27 +89,28 @@ ggplot_CreatePlots1 <- function(d, weeknow, Ukenummer, title, yrange) {
 #'
 ggplot_CreatePlotsNorway <- function(data_long, weeknow, Ukenummer, title, yrange) {
   seasons <- rev(unique(data_long$season))[1:5]
-  labs <- unique(data_long[,c("week","x")])
-  labs <- labs[as.numeric(week) %in% seq(2,52,2)]
+  labs <- unique(data_long[, c("week", "x")])
+  labs <- labs[as.numeric(week) %in% seq(2, 52, 2)]
 
-  q <- ggplot(data_long[season %in% seasons], aes(x=x,y=value, color=season))
-  q <- q + geom_vline(xintercept=fhi::x(51), lty=2)
-  q <- q + geom_vline(xintercept=fhi::x(2), lty=2)
-  q <- q + geom_vline(xintercept=fhi::x(11), lty=2)
-  q <- q + geom_vline(xintercept=fhi::x(17), lty=2)
-  q <- q + annotate("text", x=(fhi::x(51)+fhi::x(2))/2, y=yrange*0.03, label="Jul/Nytt\u00E5r", size=10)
-  q <- q + annotate("text", x=fhi::x(14), y=yrange*0.03, label="P\u00E5ske", size=10)
-  q <- q + geom_line(lwd=3)
+  q <- ggplot(data_long[season %in% seasons], aes(x = x, y = value, color = season))
+  q <- q + geom_vline(xintercept = fhi::x(51), lty = 2)
+  q <- q + geom_vline(xintercept = fhi::x(2), lty = 2)
+  q <- q + geom_vline(xintercept = fhi::x(11), lty = 2)
+  q <- q + geom_vline(xintercept = fhi::x(17), lty = 2)
+  q <- q + annotate("text", x = (fhi::x(51) + fhi::x(2)) / 2, y = yrange * 0.03, label = "Jul/Nytt\u00E5r", size = 10)
+  q <- q + annotate("text", x = fhi::x(14), y = yrange * 0.03, label = "P\u00E5ske", size = 10)
+  q <- q + geom_line(lwd = 3)
   q <- q + fhiplot::theme_fhi_basic(24)
-  q <- q + fhiplot::scale_color_fhi("",palette="combination")
-  q <- q + expand_limits(y=0)
+  q <- q + fhiplot::scale_color_fhi("", palette = "combination")
+  q <- q + expand_limits(y = 0)
   q <- q + scale_y_continuous("Antall konsultasjoner", expand = expand_scale(mult = c(0, 0.1)))
   q <- q + scale_x_continuous(
     "Ukenummer",
     expand = expand_scale(mult = c(0, 0)),
-    breaks=labs$x,
-    labels=labs$week)
-  q <- q + labs(title=title)
+    breaks = labs$x,
+    labels = labs$week
+  )
+  q <- q + labs(title = title)
   q
 }
 
@@ -140,9 +141,9 @@ ggplot_CreatePlots2 <- function(d1, weeknow, Ukenummer, Fylkename, S, mytittle) 
 
     if (w >= 1 && w <= 29) {
       plot(c(d[ind - 1, 30:52], d[ind, 1:29]),
-           type = "l", col = "green", xlim = c(1, 52), ylim = c(0, yrange),
-           main = ageGroups[ii], xlab = "Ukenummer", ylab = "Antall konsultasjoner",
-           lwd = 1, cex.lab = 0.75, cex.main = 0.85, axes = F
+        type = "l", col = "green", xlim = c(1, 52), ylim = c(0, yrange),
+        main = ageGroups[ii], xlab = "Ukenummer", ylab = "Antall konsultasjoner",
+        lwd = 1, cex.lab = 0.75, cex.main = 0.85, axes = F
       )
       lines(c(d[ind, 30:52], d[ind + 1, 1:29]), type = "l", col = "red", lwd = 1)
       lines(c(d[ind + 1, 30:52], d[ind + 2, 1:29]), type = "l", col = "orange", lwd = 1)
@@ -151,9 +152,9 @@ ggplot_CreatePlots2 <- function(d1, weeknow, Ukenummer, Fylkename, S, mytittle) 
       lines(c(d[ind + 4, 30:52], d[ind + 5, 1:weeknow]), type = "l", col = "black", lwd = 2)
     } else if (w >= 30 && w <= 52) {
       plot(c(d[ind, 30:52], d[ind + 1, 1:29]),
-           type = "l", col = "green", xlim = c(1, 52), ylim = c(0, yrange),
-           main = ageGroups[ii], xlab = "Ukenummer", ylab = "Antall konsultasjoner",
-           lwd = 1, cex.lab = 0.75, cex.main = 0.85, axes = F
+        type = "l", col = "green", xlim = c(1, 52), ylim = c(0, yrange),
+        main = ageGroups[ii], xlab = "Ukenummer", ylab = "Antall konsultasjoner",
+        lwd = 1, cex.lab = 0.75, cex.main = 0.85, axes = F
       )
       lines(c(d[ind + 1, 30:52], d[ind + 2, 1:29]), type = "l", col = "red", lwd = 1)
       lines(c(d[ind + 2, 30:52], d[ind + 3, 1:29]), type = "l", col = "orange", lwd = 1)
@@ -190,28 +191,29 @@ ggplot_CreatePlots2 <- function(d1, weeknow, Ukenummer, Fylkename, S, mytittle) 
 #'
 ggplot_CreatePlotsNorwayByAge <- function(data_long, weeknow, Ukenummer, Fylkename, S, mytittle) {
   ageGroups <- c("0 - 4 \u00E5r", "5 - 19 \u00E5r", "20 - 64 \u00E5r", "65+ \u00E5r")
-  data_long[,age:=factor(newage, levels=c(1:4),labels = ageGroups)]
+  data_long[, age := factor(newage, levels = c(1:4), labels = ageGroups)]
 
   seasons <- rev(unique(data_long$season))[1:5]
-  labs <- unique(data_long[,c("week","x")])
-  labs <- labs[as.numeric(week) %in% c("30","37","44","51","5","11","18","25")]
+  labs <- unique(data_long[, c("week", "x")])
+  labs <- labs[as.numeric(week) %in% c("30", "37", "44", "51", "5", "11", "18", "25")]
 
-  q <- ggplot(data_long[season %in% seasons], aes(x=x,y=value, color=season))
-  q <- q + geom_vline(xintercept=fhi::x(51), lty=2)
-  q <- q + geom_vline(xintercept=fhi::x(2), lty=2)
-  q <- q + geom_vline(xintercept=fhi::x(11), lty=2)
-  q <- q + geom_vline(xintercept=fhi::x(17), lty=2)
-  q <- q + geom_line(lwd=3)
+  q <- ggplot(data_long[season %in% seasons], aes(x = x, y = value, color = season))
+  q <- q + geom_vline(xintercept = fhi::x(51), lty = 2)
+  q <- q + geom_vline(xintercept = fhi::x(2), lty = 2)
+  q <- q + geom_vline(xintercept = fhi::x(11), lty = 2)
+  q <- q + geom_vline(xintercept = fhi::x(17), lty = 2)
+  q <- q + geom_line(lwd = 3)
   q <- q + fhiplot::theme_fhi_basic(24)
-  q <- q + fhiplot::scale_color_fhi("",palette="combination")
-  q <- q + expand_limits(y=0)
+  q <- q + fhiplot::scale_color_fhi("", palette = "combination")
+  q <- q + expand_limits(y = 0)
   q <- q + scale_y_continuous("Antall konsultasjoner", expand = expand_scale(mult = c(0, 0.1)))
   q <- q + scale_x_continuous(
     "Ukenummer",
     expand = expand_scale(mult = c(0, 0)),
-    breaks=labs$x,
-    labels=labs$week)
-  q <- q + lemon::facet_rep_wrap(~age, repeat.tick.labels = "all", scales="free")
-  q <- q + labs(title=paste(mytittle, "Norge, aldersfordelt", sep = ", "))
+    breaks = labs$x,
+    labels = labs$week
+  )
+  q <- q + lemon::facet_rep_wrap(~age, repeat.tick.labels = "all", scales = "free")
+  q <- q + labs(title = paste(mytittle, "Norge, aldersfordelt", sep = ", "))
   q
 }
