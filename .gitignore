@@ -9,3 +9,4 @@ inst/doc
 *.Rcheck*
 *.swp
 *.log
+inst/extdata/.DS_Store
