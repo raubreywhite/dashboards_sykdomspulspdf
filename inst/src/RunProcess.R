@@ -203,5 +203,5 @@ if (length(files) == 0) {
   fhi::sykdompulspdf_resources_remove(fhi::DashboardFolder("data_raw"))
 }
 
-file.create(fhi::DashboardFolder("results", "DONE.txt"))
-if (!fhi::DashboardIsDev()) quit(save = "no", status = 0)
+file.create(fd::path("results", "DONE.txt"))
+if (!fd::config$is_dev) quit(save = "no", status = 0)
