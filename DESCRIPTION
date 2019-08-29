@@ -14,7 +14,11 @@ Imports:
   lubridate,
   grDevices,
   ggplot2,
-  fhi
+  fhi,
+  fd,
+  fhiplot,
+  glue,
+  lemon
 Suggests: testthat
 Remotes: folkehelseinstituttet/fhi
 Additional_repositories: https://folkehelseinstituttet.github.io/drat/, https://raubreywhite.github.io/drat/

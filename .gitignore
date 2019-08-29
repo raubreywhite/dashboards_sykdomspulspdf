@@ -7,3 +7,5 @@ inst/extdata/.~lock.norwayLocations.xlsx#
 docs/*
 inst/doc
 *.Rcheck*
+*.swp
+*.log

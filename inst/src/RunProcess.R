@@ -4,47 +4,47 @@ fhi::DashboardInitialiseOpinionated(
   PKG = "sykdomspulspdf",
   PACKAGE_DIR = "."
 )
+fd::initialize("sykdomspulspdf")
 
 suppressMessages(library(data.table))
 suppressMessages(library(ggplot2))
 
 
-files <- list.files(fhi::DashboardFolder("data_raw"), "^partially_formatted_")
+files <- list.files(fd::path("data_raw"), "^partially_formatted_")
 mydate <- format(Sys.time(), "%d.%m.%y")
 
 # fhi::DashboardIsDev()
-fhi::DashboardMsg("/data_raw")
+fd::msg("/data_raw")
 list.files("/data_raw")
 
-fhi::DashboardMsg("/data_raw/sykdomspulspdf")
+fd::msg("/data_raw/sykdomspulspdf")
 list.files("/data_raw/sykdomspulspdf")
 
 if (length(files) == 0) {
-  fhi::DashboardMsg("No data")
+  fd::msg("No data")
   quit(save = "no", status = 0)
 } else {
-  for (f in files) fhi::DashboardMsg(f)
+  for (f in files) fd::msg(f)
   # grab the latest
   useFile <- max(files)
 
-  if (file.exists(fhi::DashboardFolder("results", "DONE.txt")) & !fhi::DashboardIsDev()) {
-    fhi::DashboardMsg("results DONE.txt exists")
+  if (file.exists(fd::path("results", "DONE.txt")) & !fd::config$is_dev) {
+    fd::msg("results DONE.txt exists")
     quit(save = "no", status = 0)
   }
 
-  if (RAWmisc::IsFileStable(fhi::DashboardFolder("data_raw", useFile)) == F) {
-    fhi::DashboardMsg("file no stable")
+  if (fhi::file_stable(fd::path("data_raw", useFile)) == F) {
+    fd::msg("file no stable")
     quit(save = "no", status = 0)
   }
 
+  fd::msg("Start sykdomspulspdf", slack = T)
 
-
-  d <- fread(fhi::DashboardFolder("data_raw", useFile))
+  d <- fread(fd::path("data_raw", useFile))
   fylke <- fread(system.file("extdata", "fylke.csv", package = "sykdomspulspdf"))
   lastestUpdate <- as.Date(gsub("_", "-", LatestRawID()))
 
-
-  fhi::DashboardMsg("Generating monthly pdf")
+  fd::msg("Generating monthly pdf", slack = T)
 
 
   allfylkeresults <- list()
@@ -53,70 +53,118 @@ if (length(files) == 0) {
   mylistyrange <- list()
 
   for (SYNDROM in CONFIG$SYNDROMES) {
-    sykdompulspdf_template_copy(fhi::DashboardFolder("data_raw"), SYNDROM)
+    sykdompulspdf_template_copy(fd::path("data_raw"), SYNDROM)
     # sykdompulspdf_template_copy_ALL(fhi::DashboardFolder("data_raw"), SYNDROM)
-    fhi::sykdompulspdf_resources_copy(fhi::DashboardFolder("data_raw"))
+    fhi::sykdompulspdf_resources_copy(fd::path("data_raw"))
 
     if (SYNDROM == "mage") {
       add <- "magetarm"
       mytittle <- "Mage-tarminfeksjoner"
-
+      title="Mage-tarminfeksjoner, Norge, alle aldersgrupper"
+      filename <- "gastro"
       # Alle konsultasjoner in Norway:
       data <- CleanData(d)
+      data[,yrwk:=fhi::isoyearweek(date)]
+
       alle <- tapply(data$gastro, data[, c("year", "week")], sum)
-      weeknow <- findLastWeek(lastestUpdate, alle) ### need to be fixed
-
-      if (weeknow==30) {
-        weeknow <-29
-      }
-
-      title="Mage-tarminfeksjoner, Norge, alle aldersgrupper"
-      yrange <- max(alle, na.rm = T) + (roundUpNice(max(alle, na.rm = T)) * .20)
-
-      svg(filename=fhi::DashboardFolder("results", paste("gastro Norge alle alder", Sys.Date(), "svg", sep = ".")),
-          width = 16, height = 12
-      )
-      CreatePlotsNorway(d = alle, weeknow = weeknow, Ukenummer = Ukenummer, title, yrange)
-      dev.off()
-
-
-      # Alle konsultasjoner in Norway by age:
-      svg(filename=fhi::DashboardFolder("results", paste("gastro Norge Aldersfordelt", Sys.Date(), "svg", sep = ".")),
-          width = 16, height = 12
-      )
-      CreatePlotsNorwayByAge(d1 = data, weeknow = weeknow, Ukenummer = Ukenummer, Fylkename = f, S = SYNDROM, mytittle = mytittle)
-      dev.off()
+      data_long <- data[,.(
+        value = sum(gastro)
+      ), keyby=.(
+        year,
+        week,
+        yrwk
+      )]
+      data_long[,season:=fhi::season(yrwk)]
+      data_long[,x:=fhi::x(as.numeric(week))]
     } else if (SYNDROM == "luft") {
       add <- "luftvei"
       mytittle <- "Luftveisinfeksjoner"
-
-      # Alle konsultasjoner in Norway:
-      data <- CleanData(d)
-      alle <- tapply(data$respiratory, data[, c("year", "week")], sum)
-
       title="Luftveisinfeksjoner, Norge, alle aldersgrupper"
+      filename <- "respiratory"
 
-      yrange <- max(alle, na.rm = T) + (roundUpNice(max(alle, na.rm = T)) * .20)
+      data <- CleanData(d)
+      data[,yrwk:=fhi::isoyearweek(date)]
 
-      svg(filename=fhi::DashboardFolder("results", paste("respiratory Norge alle alder", Sys.Date(), "svg", sep = ".")),
-          width = 16, height = 12
-      )
-      CreatePlotsNorway(d = alle, weeknow = weeknow, Ukenummer = Ukenummer, title, yrange)
-      dev.off()
-
-      # Alle konsultasjoner in Norway by age:
-      svg(filename=fhi::DashboardFolder("results", paste("respiratory Norge Aldersfordelt", Sys.Date(), "svg", sep = ".")),
-          width = 16, height = 12
-      )
-      CreatePlotsNorwayByAge(d1 = data, weeknow = weeknow, Ukenummer = Ukenummer, Fylkename = f, S = SYNDROM, mytittle = mytittle)
-      dev.off()
+      alle <- tapply(data$respiratory, data[, c("year", "week")], sum)
+      data_long <- data[,.(
+        value = sum(respiratory)
+      ), keyby=.(
+        year,
+        week,
+        yrwk
+      )]
+      data_long[,season:=fhi::season(yrwk)]
+      data_long[,x:=fhi::x(as.numeric(week))]
     }
 
+    weeknow <- findLastWeek(lastestUpdate, alle) ### need to be fixed
+
+    if (weeknow==30) {
+      weeknow <-29
+    }
+
+
+    yrange <- max(alle, na.rm = T) + (roundUpNice(max(alle, na.rm = T)) * .20)
+
+    q <- ggplot_CreatePlotsNorway(
+      data_long = data_long,
+      weeknow = weeknow,
+      Ukenummer = Ukenummer,
+      title,
+      yrange
+    )
+
+    ggsave(
+      filename=fd::path("results", glue::glue("{filename} Norge alle alder {Sys.Date()}.svg")),
+      plot = q,
+      width = 16,
+      height = 12,
+      units = "in"
+      )
+
+    # Alle konsultasjoner in Norway by age:
+    data_long <- data[age!="Ukjent",.(
+      value = sum(gastro)
+    ), keyby=.(
+      year,
+      week,
+      yrwk,
+      newage
+    )]
+    data_long[,season:=fhi::season(yrwk)]
+    data_long[,x:=fhi::x(as.numeric(week))]
+
+    q <- ggplot_CreatePlotsNorwayByAge(
+      data_long = data_long,
+      weeknow = weeknow,
+      Ukenummer = Ukenummer,
+      Fylkename = f,
+      S = SYNDROM,
+      mytittle = mytittle
+    )
+
+    ggsave(
+      filename=fd::path("results", glue::glue("{filename} Norge Aldersfordelt {Sys.Date()}.svg")),
+      plot = q,
+      width = 16,
+      height = 12,
+      units = "in"
+    )
+
     ###########################################
-    typetemplate <- fread(fhi::DashboardFolder("data_raw", paste("typetemplate_", SYNDROM, ".txt", sep = "")))
+    file <- glue::glue("typetemplate_{SYNDROM}.xlsx")
+    file_with_dir <- fd::path("data_raw", file)
+    if(!fs::file_exists(file_with_dir)){
+      fs::file_copy(
+        system.file("extdata", file, package = "sykdomspulspdf"),
+        file_with_dir
+      )
+    }
+    typetemplate <- readxl::read_excel(file_with_dir)
+    setDT(typetemplate)
     ## BY FYLKE
     for (f in fylke$Fylkename) {
-      fhi::DashboardMsg(sprintf("PDF: %s", f))
+      fd::msg(sprintf("PDF: %s", f))
 
 
       Fylkename <- f
@@ -132,8 +180,8 @@ if (length(files) == 0) {
 
       # fhi::RenderExternally()
 
-      nametemplate <- unique(typetemplate[V1 == f, V3])
-      childtemplate <- unique(typetemplate[V1 == f, V4])
+      nametemplate <- unique(typetemplate[fylke == f, nametemplate])
+      childtemplate <- unique(typetemplate[fylke == f, childtemplate])
 
       rmarkdown::render(
         input = fhi::DashboardFolder("data_raw", paste(nametemplate, SYNDROM, ".Rmd", sep = "")),
