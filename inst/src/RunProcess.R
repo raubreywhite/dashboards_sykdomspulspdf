@@ -53,8 +53,21 @@ if (length(files) == 0) {
   mylistyrange <- list()
 
   for (SYNDROM in CONFIG$SYNDROMES) {
+    fd::msg("Checking that typetemplate exists")
+    file <- glue::glue("typetemplate_{SYNDROM}.xlsx")
+    file_with_dir <- fd::path("data_raw", file)
+
+    if(!fs::file_exists(file_with_dir)){
+
+      fd::msg("Type template does not exist. Copying default.")
+      fs::file_copy(
+        system.file("extdata", file, package = "sykdomspulspdf"),
+        file_with_dir
+      )
+    }
+
+    fd::msg("Copying over templates and resources")
     sykdompulspdf_template_copy(fd::path("data_raw"), SYNDROM)
-    # sykdompulspdf_template_copy_ALL(fhi::DashboardFolder("data_raw"), SYNDROM)
     fhi::sykdompulspdf_resources_copy(fd::path("data_raw"))
 
     if (SYNDROM == "mage") {
@@ -152,18 +165,7 @@ if (length(files) == 0) {
     )
 
     ###########################################
-    fd::msg("Checking that typetemplate exists")
-    file <- glue::glue("typetemplate_{SYNDROM}.xlsx")
-    file_with_dir <- fd::path("data_raw", file)
 
-    if(!fs::file_exists(file_with_dir)){
-
-      fd::msg("Type template does not exist. Copying default.")
-      fs::file_copy(
-        system.file("extdata", file, package = "sykdomspulspdf"),
-        file_with_dir
-      )
-    }
 
     fd::msg("Reading in typetemplate")
     typetemplate <- readxl::read_excel(file_with_dir)
