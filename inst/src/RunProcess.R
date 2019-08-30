@@ -152,14 +152,20 @@ if (length(files) == 0) {
     )
 
     ###########################################
+    fd::msg("Checking that typetemplate exists")
     file <- glue::glue("typetemplate_{SYNDROM}.xlsx")
     file_with_dir <- fd::path("data_raw", file)
+
     if(!fs::file_exists(file_with_dir)){
+
+      fd::msg("Type template does not exist. Copying default.")
       fs::file_copy(
         system.file("extdata", file, package = "sykdomspulspdf"),
         file_with_dir
       )
     }
+
+    fd::msg("Reading in typetemplate")
     typetemplate <- readxl::read_excel(file_with_dir)
     setDT(typetemplate)
     ## BY FYLKE
