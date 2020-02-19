@@ -1,13 +1,185 @@
-# devtools::load_all("fhi")
-fhi::DashboardInitialiseOpinionated(
-  NAME = "sykdomspulspdf",
-  PKG = "sykdomspulspdf",
-  PACKAGE_DIR = "."
-)
 fd::initialize("sykdomspulspdf")
 
 suppressMessages(library(data.table))
 suppressMessages(library(ggplot2))
+
+run_date <- fd::get_rundate()
+
+fs::dir_create(fd::path("results", lubridate::today()))
+fs::dir_create(fd::path("data_raw", lubridate::today()))
+
+locs <- unique(fhidata::norway_locations_current[,c("county_code","county_name")])
+
+for (tag in c("gastro","respiratoryexternal")) {
+  fd::msg("Checking that typetemplate exists")
+  file <- glue::glue("typetemplate_{tag}.xlsx")
+  file_with_dir <- fd::path("data_raw", file)
+
+  files <- c("monthly_report.Rmd","monthly_reportALL.Rmd")
+
+  for(f in files) file.copy(
+    from=system.file("extdata", f, package = "sykdomspulspdf"),
+    to=fd::path("data_raw", lubridate::today(), f),
+    overwrite = T
+  )
+
+  file_before <- glue::glue("child_{tag}.Rmd")
+  files_after <- glue::glue("{locs$county_code}_child_{tag}.Rmd")
+  for(i in seq_along(files_after)) file.copy(
+    from=system.file("extdata", file_before, package = "sykdomspulspdf"),
+    to=fd::path("data_raw", lubridate::today(), files_after[i]),
+    overwrite = T
+  )
+
+  fhi::sykdompulspdf_resources_copy(fd::path("data_raw", lubridate::today()))
+
+  for(i in 1:nrow(locs)){
+    rmarkdown::render(
+      input = fd::path("data_raw", lubridate::today(), "monthly_report.Rmd"),
+      output_file = glue::glue("{tag}_{locs$county_code[i]}_monthly_report.pdf"),
+      output_dir = fd::path("results", lubridate::today()),
+      params = list(
+        tag = tag,
+        location_code = locs$county_code[i]
+      ),
+      envir = new.env()
+    )
+  }
+
+  rmarkdown::render(
+    input = fd::path("data_raw", lubridate::today(), "monthly_reportALL.Rmd"),
+    output_file = glue::glue("{tag}_ALL_monthly_report.pdf"),
+    output_dir = fd::path("results", lubridate::today()),
+    params = list(
+      tag = tag
+    )
+  )
+}
+
+rmarkdown::render(
+  input = fhi::DashboardFolder("data_raw", paste("monthly_report_", SYNDROM, "ALL.Rmd", sep = "")),
+  output_file = paste("ALL", "_", add, ".pdf", sep = ""),
+  output_dir = fhi::DashboardFolder("results", paste("PDF", mydate, sep = "_"))
+)
+
+
+
+
+
+for (syndrome in CONFIG$SYNDROMES)) {
+  fd::msg("Checking that typetemplate exists")
+  file <- glue::glue("typetemplate_{syndrome}.xlsx")
+  file_with_dir <- fd::path("data_raw", file)
+
+  if(!fs::file_exists(file_with_dir)){
+
+    fd::msg("Type template does not exist. Copying default.")
+    fs::file_copy(
+      system.file("extdata", file, package = "sykdomspulspdf"),
+      file_with_dir
+    )
+  }
+
+  fd::msg("Copying over templates and resources")
+  sykdompulspdf_template_copy(fd::path("data_raw"), syndrome)
+  fhi::sykdompulspdf_resources_copy(fd::path("data_raw"))
+
+  if (syndrome == "mage") {
+    add <- "magetarm"
+    mytittle <- "Mage-tarminfeksjoner"
+    title="Mage-tarminfeksjoner, Norge, alle aldersgrupper"
+    filename <- "gastro"
+    # Alle konsultasjoner in Norway:
+    data <- CleanData(d)
+    data[,yrwk:=fhi::isoyearweek(date)]
+
+    alle <- tapply(data$gastro, data[, c("year", "week")], sum)
+    data_long <- data[,.(
+      value = sum(gastro)
+    ), keyby=.(
+      year,
+      week,
+      yrwk
+    )]
+    data_long[,season:=fhi::season(yrwk)]
+    data_long[,x:=fhi::x(as.numeric(week))]
+  } else if (SYNDROM == "luft") {
+    add <- "luftvei"
+    mytittle <- "Luftveisinfeksjoner"
+    title="Luftveisinfeksjoner, Norge, alle aldersgrupper"
+    filename <- "respiratory"
+
+    data <- CleanData(d)
+    data[,yrwk:=fhi::isoyearweek(date)]
+
+    alle <- tapply(data$respiratory, data[, c("year", "week")], sum)
+    data_long <- data[,.(
+      value = sum(respiratory)
+    ), keyby=.(
+      year,
+      week,
+      yrwk
+    )]
+    data_long[,season:=fhi::season(yrwk)]
+    data_long[,x:=fhi::x(as.numeric(week))]
+  }
+
+  weeknow <- findLastWeek(lastestUpdate, alle) ### need to be fixed
+
+  if (weeknow==30) {
+    weeknow <-29
+  }
+
+
+  yrange <- max(alle, na.rm = T) + (roundUpNice(max(alle, na.rm = T)) * .20)
+
+  q <- ggplot_CreatePlotsNorway(
+    data_long = data_long,
+    weeknow = weeknow,
+    Ukenummer = Ukenummer,
+    title,
+    yrange
+  )
+
+  ggsave(
+    filename=fd::path("results", glue::glue("{filename} Norge alle alder {Sys.Date()}.svg")),
+    plot = q,
+    width = 16,
+    height = 12,
+    units = "in"
+  )
+
+  # Alle konsultasjoner in Norway by age:
+  data_long <- data[age!="Ukjent",.(
+    value = sum(gastro)
+  ), keyby=.(
+    year,
+    week,
+    yrwk,
+    newage
+  )]
+  data_long[,season:=fhi::season(yrwk)]
+  data_long[,x:=fhi::x(as.numeric(week))]
+
+  q <- ggplot_CreatePlotsNorwayByAge(
+    data_long = data_long,
+    weeknow = weeknow,
+    Ukenummer = Ukenummer,
+    Fylkename = f,
+    S = SYNDROM,
+    mytittle = mytittle
+  )
+
+  ggsave(
+    filename=fd::path("results", glue::glue("{filename} Norge Aldersfordelt {Sys.Date()}.svg")),
+    plot = q,
+    width = 16,
+    height = 12,
+    units = "in"
+  )
+
+
+
 
 
 files <- list.files(fd::path("data_raw"), "^partially_formatted_")

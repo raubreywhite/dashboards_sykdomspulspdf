@@ -1,5 +1,5 @@
 Package: sykdomspulspdf
-Title: Monthly production of pdfs for the Norwegian Syndromic Surveillance System - NorSySS
+Title: Depreciated - to be removed
 Version: 2019.09.19
 Authors@R: person("B", "V", email = "beva@fhi.com", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
